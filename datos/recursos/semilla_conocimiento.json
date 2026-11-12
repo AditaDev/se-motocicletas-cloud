@@ -1,0 +1,733 @@
+{
+  "hipotesis": [
+    {
+      "id_hipotesis": 1,
+      "codigo": "S01",
+      "categoria": "A",
+      "nombre": "Batería descargada o con capacidad insuficiente",
+      "ruta": "A>A1-N>A2-1",
+      "descripcion": "La batería podría no entregar energía suficiente para el arranque.",
+      "recomendacion": "Solicitar revisión de la batería, los bornes y el sistema de carga."
+    },
+    {
+      "id_hipotesis": 2,
+      "codigo": "S02",
+      "categoria": "A",
+      "nombre": "Conexiones eléctricas o circuito de arranque",
+      "ruta": "A>A1-N>A2-3",
+      "descripcion": "Podría existir una interrupción en el circuito que acciona el arranque.",
+      "recomendacion": "Solicitar revisión de fusibles, conexiones e interruptores del circuito de arranque."
+    },
+    {
+      "id_hipotesis": 3,
+      "codigo": "S03",
+      "categoria": "A",
+      "nombre": "Motor de arranque, relé o sistema de accionamiento",
+      "ruta": "A>A1-N>A2-2",
+      "descripcion": "El síntoma es compatible con una anomalía de accionamiento, sin confirmar el componente.",
+      "recomendacion": "Solicitar revisión profesional del relé, motor de arranque, batería y conexiones."
+    },
+    {
+      "id_hipotesis": 4,
+      "codigo": "S04",
+      "categoria": "A",
+      "nombre": "Encendido, combustible o condición mecánica de arranque",
+      "ruta": "A>A1-S",
+      "descripcion": "El motor gira, pero no logra encender; la causa no se diferencia con estas observaciones.",
+      "recomendacion": "Solicitar diagnóstico técnico del encendido, suministro de combustible y estado mecánico."
+    },
+    {
+      "id_hipotesis": 5,
+      "codigo": "S05",
+      "categoria": "B",
+      "nombre": "Sistema de encendido del motor",
+      "ruta": "B>B1-N>B2-3",
+      "descripcion": "Los tirones son compatibles con una falla de encendido, entre otras causas.",
+      "recomendacion": "Solicitar revisión del sistema de encendido según las especificaciones del modelo."
+    },
+    {
+      "id_hipotesis": 6,
+      "codigo": "S06",
+      "categoria": "B",
+      "nombre": "Sistema de alimentación de combustible",
+      "ruta": "B>B1-N>B2-2",
+      "descripcion": "Los síntomas podrían relacionarse con suministro irregular de combustible.",
+      "recomendacion": "Solicitar inspección del sistema de alimentación, carburador o inyección, según corresponda."
+    },
+    {
+      "id_hipotesis": 7,
+      "codigo": "S07",
+      "categoria": "B",
+      "nombre": "Filtro de aire o sistema de admisión",
+      "ruta": "B>B1-N>B2-1",
+      "descripcion": "La respuesta lenta y el mantenimiento pendiente orientan hacia la admisión.",
+      "recomendacion": "Revisar con un técnico el filtro de aire y los componentes de admisión."
+    },
+    {
+      "id_hipotesis": 8,
+      "codigo": "S08",
+      "categoria": "B",
+      "nombre": "Estado mecánico interno del motor",
+      "ruta": "B>B1-S",
+      "descripcion": "El humo azulado o consumo de aceite pueden asociarse con desgaste interno.",
+      "recomendacion": "Solicitar evaluación mecánica especializada del motor; evitar el uso si los síntomas son intensos."
+    },
+    {
+      "id_hipotesis": 9,
+      "codigo": "S09",
+      "categoria": "C",
+      "nombre": "Sistema de refrigeración o pérdida de refrigerante",
+      "ruta": "C>C1-1",
+      "descripcion": "La pérdida visible de refrigerante orienta hacia el circuito de refrigeración líquida.",
+      "recomendacion": "Detener el uso si existe sobrecalentamiento y solicitar revisión de fugas del sistema de refrigeración."
+    },
+    {
+      "id_hipotesis": 10,
+      "codigo": "S10",
+      "categoria": "C",
+      "nombre": "Ventilador o control de temperatura",
+      "ruta": "C>C1-2",
+      "descripcion": "Podría existir una anomalía en el ventilador o el control térmico de un modelo que lo incorpore.",
+      "recomendacion": "Detener el uso ante sobrecalentamiento y solicitar revisión del ventilador y el control térmico."
+    },
+    {
+      "id_hipotesis": 11,
+      "codigo": "S11",
+      "categoria": "C",
+      "nombre": "Sistema de lubricación o nivel de aceite",
+      "ruta": "C>C1-3",
+      "descripcion": "Un nivel de aceite conocido como bajo puede relacionarse con sobrecalentamiento y daño del motor.",
+      "recomendacion": "No circular ante advertencias de lubricación; solicitar revisión del aceite y del sistema."
+    },
+    {
+      "id_hipotesis": 12,
+      "codigo": "S12",
+      "categoria": "D",
+      "nombre": "Ruido interno o posible desgaste mecánico del motor",
+      "ruta": "D>D1-1",
+      "descripcion": "Los golpeteos metálicos internos requieren valoración mecánica.",
+      "recomendacion": "Detener el uso si hay golpeteos fuertes o persistentes y solicitar evaluación mecánica."
+    },
+    {
+      "id_hipotesis": 13,
+      "codigo": "S13",
+      "categoria": "D",
+      "nombre": "Sistema de escape o sus fijaciones",
+      "ruta": "D>D1-2",
+      "descripcion": "El ruido parece localizarse en el escape o sus sujeciones.",
+      "recomendacion": "Solicitar revisión del escape y sus fijaciones; evitar el contacto con componentes calientes."
+    },
+    {
+      "id_hipotesis": 14,
+      "codigo": "S14",
+      "categoria": "D",
+      "nombre": "Ruedas, neumáticos o elementos de fijación",
+      "ruta": "D>D1-3",
+      "descripcion": "La vibración localizada podría relacionarse con ruedas o neumáticos.",
+      "recomendacion": "Evitar circular ante vibraciones fuertes y solicitar revisión de neumáticos, ruedas y fijaciones."
+    },
+    {
+      "id_hipotesis": 15,
+      "codigo": "S15",
+      "categoria": "E",
+      "nombre": "Cadena o piñones de transmisión final",
+      "ruta": "E>E1-1",
+      "descripcion": "La holgura, la tensión o el desgaste visible apuntan a la transmisión final.",
+      "recomendacion": "No circular si la cadena salta; solicitar revisión de cadena, tensión y piñones."
+    },
+    {
+      "id_hipotesis": 16,
+      "codigo": "S16",
+      "categoria": "E",
+      "nombre": "Embrague",
+      "ruta": "E>E1-2",
+      "descripcion": "La aceleración del motor sin aumento proporcional de velocidad es compatible con deslizamiento.",
+      "recomendacion": "Solicitar valoración técnica del embrague y sus componentes."
+    },
+    {
+      "id_hipotesis": 17,
+      "codigo": "S17",
+      "categoria": "E",
+      "nombre": "Selección de marchas o transmisión",
+      "ruta": "E>E1-3",
+      "descripcion": "La dificultad de cambio o salida de una marcha requiere revisión del selector y la transmisión.",
+      "recomendacion": "Solicitar inspección del selector y del sistema de transmisión."
+    },
+    {
+      "id_hipotesis": 18,
+      "codigo": "S18",
+      "categoria": "F",
+      "nombre": "Elementos de fricción de los frenos",
+      "ruta": "F>F1-1>F2-2",
+      "descripcion": "La reducción de frenado o ruido en la frenada puede relacionarse con elementos de fricción.",
+      "recomendacion": "No utilizar la motocicleta si disminuye la capacidad de frenado; solicitar revisión de frenos."
+    },
+    {
+      "id_hipotesis": 19,
+      "codigo": "S19",
+      "categoria": "F",
+      "nombre": "Sistema hidráulico de frenos",
+      "ruta": "F>F1-1>F2-1",
+      "descripcion": "La sensación esponjosa o pérdida de líquido requiere atención al circuito hidráulico.",
+      "recomendacion": "No utilizar la motocicleta hasta que un profesional revise el sistema hidráulico de frenos."
+    },
+    {
+      "id_hipotesis": 20,
+      "codigo": "S20",
+      "categoria": "F",
+      "nombre": "Neumáticos, ruedas o suspensión y estabilidad",
+      "ruta": "F>F1-2>F3-2",
+      "descripcion": "La inestabilidad puede involucrar neumáticos, ruedas o suspensión.",
+      "recomendacion": "No continuar circulando si hay pérdida de estabilidad; solicitar inspección de ruedas y suspensión."
+    },
+    {
+      "id_hipotesis": 21,
+      "codigo": "S21",
+      "categoria": "F",
+      "nombre": "Sistema de dirección",
+      "ruta": "F>F1-2>F3-1",
+      "descripcion": "La dureza u holgura de la dirección puede comprometer el control.",
+      "recomendacion": "No utilizar la motocicleta hasta revisar profesionalmente la dirección."
+    },
+    {
+      "id_hipotesis": 22,
+      "codigo": "S22",
+      "categoria": "G",
+      "nombre": "Circuito de iluminación",
+      "ruta": "G>G1-N>G2-1",
+      "descripcion": "El problema afecta principalmente las luces.",
+      "recomendacion": "Revisar luces, conexiones e interruptores; no circular sin las luces necesarias."
+    },
+    {
+      "id_hipotesis": 23,
+      "codigo": "S23",
+      "categoria": "G",
+      "nombre": "Sistema de carga eléctrica",
+      "ruta": "G>G1-N>G2-2",
+      "descripcion": "La descarga reiterada durante el uso es compatible con anomalías de carga.",
+      "recomendacion": "Solicitar comprobación profesional del sistema de carga y de la batería."
+    },
+    {
+      "id_hipotesis": 24,
+      "codigo": "S24",
+      "categoria": "G",
+      "nombre": "Fusibles, relés, interruptores o circuitos auxiliares",
+      "ruta": "G>G1-N>G2-3",
+      "descripcion": "La falla se concentra en dispositivos eléctricos auxiliares.",
+      "recomendacion": "Solicitar revisión del circuito auxiliar y de los componentes eléctricos afectados."
+    },
+    {
+      "id_hipotesis": 25,
+      "codigo": "S25",
+      "categoria": "G",
+      "nombre": "Sistema electrónico o códigos de error",
+      "ruta": "G>G1-S",
+      "descripcion": "El tablero presenta una advertencia o un código que requiere interpretación técnica.",
+      "recomendacion": "Consultar el manual del modelo y solicitar lectura técnica de las advertencias o códigos de error."
+    }
+  ],
+  "hechos": [
+    {
+      "id_hecho": 1,
+      "codigo": "H01",
+      "descripcion": "La motocicleta no enciende o presenta dificultades para arrancar."
+    },
+    {
+      "id_hecho": 2,
+      "codigo": "H02",
+      "descripcion": "El motor de arranque no consigue hacer girar el motor."
+    },
+    {
+      "id_hecho": 3,
+      "codigo": "H03",
+      "descripcion": "Las luces se debilitan mucho y el arranque es lento o nulo."
+    },
+    {
+      "id_hecho": 4,
+      "codigo": "H04",
+      "descripcion": "Las luces parecen normales y no se escucha accionar el sistema de arranque."
+    },
+    {
+      "id_hecho": 5,
+      "codigo": "H05",
+      "descripcion": "Las luces parecen normales y se escucha un clic, pero el motor no gira."
+    },
+    {
+      "id_hecho": 6,
+      "codigo": "H06",
+      "descripcion": "El motor de arranque gira, pero el motor no logra encender."
+    },
+    {
+      "id_hecho": 7,
+      "codigo": "H07",
+      "descripcion": "La motocicleta enciende, pero falla, pierde potencia o se apaga."
+    },
+    {
+      "id_hecho": 8,
+      "codigo": "H08",
+      "descripcion": "No se reconoce humo azulado persistente ni consumo anormal conocido de aceite."
+    },
+    {
+      "id_hecho": 9,
+      "codigo": "H09",
+      "descripcion": "Se presentan tirones o interrupciones compatibles con fallas de encendido."
+    },
+    {
+      "id_hecho": 10,
+      "codigo": "H10",
+      "descripcion": "Hay pérdidas intermitentes de fuerza e indicios de suministro irregular de combustible."
+    },
+    {
+      "id_hecho": 11,
+      "codigo": "H11",
+      "descripcion": "La respuesta al acelerar es lenta y el mantenimiento del filtro de aire está pendiente."
+    },
+    {
+      "id_hecho": 12,
+      "codigo": "H12",
+      "descripcion": "Se observa humo azulado persistente o existe antecedente de consumo anormal de aceite."
+    },
+    {
+      "id_hecho": 13,
+      "codigo": "H13",
+      "descripcion": "El motor se calienta más de lo normal."
+    },
+    {
+      "id_hecho": 14,
+      "codigo": "H14",
+      "descripcion": "Hay pérdida visible de refrigerante en una motocicleta con refrigeración líquida."
+    },
+    {
+      "id_hecho": 15,
+      "codigo": "H15",
+      "descripcion": "En una motocicleta con ventilador, este no parece activarse cuando normalmente debería."
+    },
+    {
+      "id_hecho": 16,
+      "codigo": "H16",
+      "descripcion": "Se conoce que el nivel de aceite está bajo o existe una advertencia de lubricación."
+    },
+    {
+      "id_hecho": 17,
+      "codigo": "H17",
+      "descripcion": "La motocicleta presenta ruidos o vibraciones anormales."
+    },
+    {
+      "id_hecho": 18,
+      "codigo": "H18",
+      "descripcion": "Se percibe golpeteo metálico fuerte o persistente procedente del interior del motor."
+    },
+    {
+      "id_hecho": 19,
+      "codigo": "H19",
+      "descripcion": "El ruido parece provenir del escape o sus elementos de fijación."
+    },
+    {
+      "id_hecho": 20,
+      "codigo": "H20",
+      "descripcion": "La vibración parece relacionarse con una rueda o neumático durante el desplazamiento."
+    },
+    {
+      "id_hecho": 21,
+      "codigo": "H21",
+      "descripcion": "La motocicleta presenta problemas relacionados con la transmisión."
+    },
+    {
+      "id_hecho": 22,
+      "codigo": "H22",
+      "descripcion": "La cadena presenta holgura, tensión anormal o desgaste visible."
+    },
+    {
+      "id_hecho": 23,
+      "codigo": "H23",
+      "descripcion": "Las revoluciones aumentan, pero la velocidad no lo hace proporcionalmente."
+    },
+    {
+      "id_hecho": 24,
+      "codigo": "H24",
+      "descripcion": "Cuesta seleccionar una marcha o alguna marcha se sale durante el funcionamiento."
+    },
+    {
+      "id_hecho": 25,
+      "codigo": "H25",
+      "descripcion": "La motocicleta presenta problemas relacionados con los frenos o la dirección."
+    },
+    {
+      "id_hecho": 26,
+      "codigo": "H26",
+      "descripcion": "El problema principal afecta al frenado."
+    },
+    {
+      "id_hecho": 27,
+      "codigo": "H27",
+      "descripcion": "Se escucha ruido anormal al frenar o disminuye la capacidad de frenado."
+    },
+    {
+      "id_hecho": 28,
+      "codigo": "H28",
+      "descripcion": "La maneta o el pedal se sienten esponjosos, o hay fuga en un freno hidráulico."
+    },
+    {
+      "id_hecho": 29,
+      "codigo": "H29",
+      "descripcion": "El problema principal afecta a la dirección o la estabilidad."
+    },
+    {
+      "id_hecho": 30,
+      "codigo": "H30",
+      "descripcion": "Hay vibraciones o inestabilidad relacionadas con ruedas, neumáticos o suspensión."
+    },
+    {
+      "id_hecho": 31,
+      "codigo": "H31",
+      "descripcion": "La dirección está dura, presenta holgura o movimientos anormales."
+    },
+    {
+      "id_hecho": 32,
+      "codigo": "H32",
+      "descripcion": "La motocicleta presenta fallas eléctricas o electrónicas."
+    },
+    {
+      "id_hecho": 33,
+      "codigo": "H33",
+      "descripcion": "El problema principal no corresponde a una advertencia o código electrónico."
+    },
+    {
+      "id_hecho": 34,
+      "codigo": "H34",
+      "descripcion": "Una o varias luces no encienden, parpadean o funcionan intermitentemente."
+    },
+    {
+      "id_hecho": 35,
+      "codigo": "H35",
+      "descripcion": "La batería se descarga repetidamente durante el uso habitual."
+    },
+    {
+      "id_hecho": 36,
+      "codigo": "H36",
+      "descripcion": "Fallan interruptores, accesorios u otros componentes eléctricos auxiliares."
+    },
+    {
+      "id_hecho": 37,
+      "codigo": "H37",
+      "descripcion": "El problema principal es una advertencia electrónica o un código de error conocido."
+    }
+  ],
+  "intermedia": [
+    {
+      "id_hipotesis": 1,
+      "id_hecho": 1,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 1,
+      "id_hecho": 2,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 1,
+      "id_hecho": 3,
+      "orden": 3
+    },
+    {
+      "id_hipotesis": 2,
+      "id_hecho": 1,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 2,
+      "id_hecho": 2,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 2,
+      "id_hecho": 4,
+      "orden": 3
+    },
+    {
+      "id_hipotesis": 3,
+      "id_hecho": 1,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 3,
+      "id_hecho": 2,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 3,
+      "id_hecho": 5,
+      "orden": 3
+    },
+    {
+      "id_hipotesis": 4,
+      "id_hecho": 1,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 4,
+      "id_hecho": 6,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 5,
+      "id_hecho": 7,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 5,
+      "id_hecho": 8,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 5,
+      "id_hecho": 9,
+      "orden": 3
+    },
+    {
+      "id_hipotesis": 6,
+      "id_hecho": 7,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 6,
+      "id_hecho": 8,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 6,
+      "id_hecho": 10,
+      "orden": 3
+    },
+    {
+      "id_hipotesis": 7,
+      "id_hecho": 7,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 7,
+      "id_hecho": 8,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 7,
+      "id_hecho": 11,
+      "orden": 3
+    },
+    {
+      "id_hipotesis": 8,
+      "id_hecho": 7,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 8,
+      "id_hecho": 12,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 9,
+      "id_hecho": 13,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 9,
+      "id_hecho": 14,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 10,
+      "id_hecho": 13,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 10,
+      "id_hecho": 15,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 11,
+      "id_hecho": 13,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 11,
+      "id_hecho": 16,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 12,
+      "id_hecho": 17,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 12,
+      "id_hecho": 18,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 13,
+      "id_hecho": 17,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 13,
+      "id_hecho": 19,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 14,
+      "id_hecho": 17,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 14,
+      "id_hecho": 20,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 15,
+      "id_hecho": 21,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 15,
+      "id_hecho": 22,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 16,
+      "id_hecho": 21,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 16,
+      "id_hecho": 23,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 17,
+      "id_hecho": 21,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 17,
+      "id_hecho": 24,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 18,
+      "id_hecho": 25,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 18,
+      "id_hecho": 26,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 18,
+      "id_hecho": 27,
+      "orden": 3
+    },
+    {
+      "id_hipotesis": 19,
+      "id_hecho": 25,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 19,
+      "id_hecho": 26,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 19,
+      "id_hecho": 28,
+      "orden": 3
+    },
+    {
+      "id_hipotesis": 20,
+      "id_hecho": 25,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 20,
+      "id_hecho": 29,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 20,
+      "id_hecho": 30,
+      "orden": 3
+    },
+    {
+      "id_hipotesis": 21,
+      "id_hecho": 25,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 21,
+      "id_hecho": 29,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 21,
+      "id_hecho": 31,
+      "orden": 3
+    },
+    {
+      "id_hipotesis": 22,
+      "id_hecho": 32,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 22,
+      "id_hecho": 33,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 22,
+      "id_hecho": 34,
+      "orden": 3
+    },
+    {
+      "id_hipotesis": 23,
+      "id_hecho": 32,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 23,
+      "id_hecho": 33,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 23,
+      "id_hecho": 35,
+      "orden": 3
+    },
+    {
+      "id_hipotesis": 24,
+      "id_hecho": 32,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 24,
+      "id_hecho": 33,
+      "orden": 2
+    },
+    {
+      "id_hipotesis": 24,
+      "id_hecho": 36,
+      "orden": 3
+    },
+    {
+      "id_hipotesis": 25,
+      "id_hecho": 32,
+      "orden": 1
+    },
+    {
+      "id_hipotesis": 25,
+      "id_hecho": 37,
+      "orden": 2
+    }
+  ]
+}
