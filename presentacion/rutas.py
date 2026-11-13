@@ -135,6 +135,8 @@ def iniciar():
     try:
         estado=m.iniciar(cat)
         estado['token_consulta']=str(uuid.uuid4())
+        estado['pasos_anteriores']=[]
+        estado['confirmada']=False
         session['estado']=estado
     except ValueError as e:return salida_error(str(e))
     return jsonify({'ok':True,'categoria':cat})
@@ -150,7 +152,8 @@ def pregunta():
     return jsonify({'categoria':estado['categoria'],'ruta':estado['ruta'],
                    'numero_paso':len(estado['ruta'].split('>')),
                    'opciones':[{'codigo':o['codigo'],'texto':o['texto']} for o in ops],
-                   'terminada':estado['terminada'],'inconclusa':estado['inconclusa']})
+                   'terminada':estado['terminada'],'inconclusa':estado['inconclusa'],
+                   'puede_retroceder':True})
 
 @bp.post('/api/responder')
 @require_login
@@ -161,7 +164,9 @@ def responder():
     codigo=str(dato.get('opcion','')).strip()
     _,m=componentes()
     try:
+        anterior=copia_paso(estado)
         m.responder(estado,codigo)
+        estado.setdefault('pasos_anteriores',[]).append(anterior)
         session['estado']=estado
     except ValueError as e:return salida_error(str(e))
     return jsonify({'ok':True,'terminada':estado['terminada']})
@@ -171,6 +176,9 @@ def responder():
 def no_se():
     estado=session.get('estado')
     if not estado:return salida_error('No hay consulta activa.',404)
+    if estado.get('confirmada') or estado.get('terminada') or estado.get('inconclusa'):
+        return salida_error('La consulta ya terminó.',409)
+    estado.setdefault('pasos_anteriores',[]).append(copia_paso(estado))
     estado['inconclusa']=True
     session['estado']=estado
     return jsonify({'ok':True})
@@ -183,7 +191,10 @@ def resultado():
     _,m=componentes()
     try:
         r=m.resultado(estado)
-        guardar_consulta(usuario_actual()['id_usuario'],estado,r)
+        r['puede_retroceder']=not estado.get('confirmada', False)
+        r['confirmada']=estado.get('confirmada', False)
+        if estado.get('seleccion_usuario'):
+            r['seleccion_usuario']=estado['seleccion_usuario']
         return jsonify(r)
     except ValueError as e:return salida_error(str(e))
 
@@ -213,3 +224,70 @@ def reiniciar():
     return jsonify({'ok':True})
 
 
+
+
+def copia_paso(estado):
+    """Memoria de trabajo reversible: evita sumar dos veces puntos al corregir respuestas."""
+    return {
+        'ruta': estado['ruta'],
+        'puntos': dict(estado['puntos']),
+        'hechos': list(estado['hechos']),
+        'terminada': estado['terminada'],
+        'inconclusa': estado['inconclusa'],
+    }
+
+
+@bp.post('/api/retroceder')
+@require_login
+def retroceder():
+    estado = session.get('estado')
+    if not estado:
+        return salida_error('No hay consulta activa.',404)
+    if estado.get('confirmada'):
+        return salida_error('Esta consulta ya fue registrada. Inicia una nueva para cambiar respuestas.',409)
+    anteriores = estado.get('pasos_anteriores',[])
+    if not anteriores:
+        session.pop('estado',None)
+        return jsonify({'ok':True,'inicio':True})
+    anterior = anteriores.pop()
+    estado.update(anterior)
+    session['estado']=estado
+    return jsonify({'ok':True,'inicio':False,'ruta':estado['ruta']})
+
+
+@bp.post('/api/confirmar')
+@require_login
+def confirmar_resultado():
+    """Almacena la elección del usuario SIN modificar la inferencia calculada."""
+    estado = session.get('estado')
+    if not estado:
+        return salida_error('No hay consulta activa.',404)
+    if estado.get('confirmada'):
+        return salida_error('La selección ya fue registrada.',409)
+    _, motor = componentes()
+    try:
+        r = motor.resultado(estado)
+    except ValueError as exc:
+        return salida_error(str(exc))
+    payload = request.get_json(silent=True) or {}
+    codigo = str(payload.get('codigo','')).strip().upper()
+    if r['no_concluyente']:
+        return salida_error('No hay hipótesis disponibles para seleccionar. Regresa a una pregunta o inicia otro diagnóstico.',409)
+    opciones = {c['codigo']:c for c in r['candidatas']}
+    if codigo not in opciones:
+        return salida_error('Selecciona una de las hipótesis mostradas.')
+    elegida = opciones[codigo]
+    seleccion = {
+        'codigo':codigo, 'nombre':elegida['nombre'],
+        'tipo':'REPORTADA_POR_USUARIO',
+        'nota':'Elección orientativa del usuario; no equivale a una comprobación técnica.'
+    }
+    r['seleccion_usuario'] = seleccion
+    # El id_hipotesis persistido indica la opción reportada por el usuario;
+    # resultado_json conserva la principal y la puntuación original del motor.
+    guardar_consulta(usuario_actual()['id_usuario'],estado,r)
+    estado['confirmada']=True
+    estado['seleccion_usuario']=seleccion
+    session['estado']=estado
+    return jsonify({'ok':True,'seleccion_usuario':seleccion,
+                    'mensaje':'Tu selección fue guardada en Mi historial.'})

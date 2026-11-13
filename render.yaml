@@ -1,10 +1,10 @@
 services:
   - type: web
-    name: experto-motocicletas-cloud
+    name: se-motocicletas
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: python -m datos.preparacion && gunicorn app:app
+    startCommand: python -m datos.inicializacion && gunicorn app:app
     envVars:
       - key: SECRET_KEY
         generateValue: true
@@ -17,6 +17,6 @@ services:
       - key: MYSQL_PASSWORD
         sync: false
       - key: MYSQL_DATABASE
-        sync: false
+        value: motos_experto_nm
       - key: MYSQL_SSL
         value: '1'

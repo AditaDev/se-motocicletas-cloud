@@ -65,7 +65,8 @@ class Motor:
             gr=self.repo.hechos_de(h['id_hipotesis'])
             ids={r['id_hecho'] for r in gr}
             puntos=estado['puntos'][h['codigo']]
-            opciones.append({'codigo':h['codigo'], 'nombre':h['nombre'], 'puntos':puntos,
+            opciones.append({'codigo':h['codigo'], 'nombre':h['nombre'],
+                             'descripcion':h['descripcion'], 'puntos':puntos,
                              'peso':round(puntos/total*100,2) if total else 0,
                              'regla_completa':ids.issubset(set(estado['hechos']))})
         opciones.sort(key=lambda o:(-o['puntos'],o['codigo']))

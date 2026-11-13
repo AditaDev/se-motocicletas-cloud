@@ -11,7 +11,11 @@ async function api(ruta, metodo='GET', datos=null) {
   limpiarError();
   const resp = await fetch(ruta, {method:metodo,headers:{'Content-Type':'application/json','X-CSRF-Token':csrfToken},credentials:'same-origin',
     ...(datos!==null ? {body:JSON.stringify(datos)} : {})});
-  const json = await resp.json();
+  const cuerpo = await resp.text();
+  let json;
+  try { json = JSON.parse(cuerpo); } catch (_) {
+    throw new Error(`El servidor devolvió una respuesta inesperada (HTTP ${resp.status}). Revisa los registros de Render.`);
+  }
   if(!resp.ok) throw new Error(json.error || `Error ${resp.status}`);
   return json;
 }
@@ -52,6 +56,7 @@ function lineaHecho(conector,descripcion) {
 async function resultado(){
   try{
     const r=await api('/api/resultado');mostrar('resultados');
+    mostrarConfirmacion(r);
     const hallazgo=$('granulos');hallazgo.replaceChildren();
     if(r.no_concluyente) {
       $('resultado_titulo').textContent='Consulta no concluyente';$('resultado_desc').textContent=r.mensaje;
@@ -148,6 +153,7 @@ function mostrarDetalleHistorico(c){
   const g=$('granulos');g.replaceChildren();
   (r.granulos||[]).forEach((o,i)=>g.appendChild(lineaHecho(i?'AND':'IF',o.condicion)));
   if(!r.no_concluyente)g.appendChild(lineaHecho('THEN',r.principal.nombre));
+  mostrarConfirmacionHistorica(r);
   mostrar('resultados');
 }
 $('ver_admin').addEventListener('click',async()=>{
@@ -160,6 +166,69 @@ $('ver_admin').addEventListener('click',async()=>{
     mostrar('administracion');
   }catch(e){error(e);}
 });
+
+// Confirmación final: se guarda exclusivamente después de que el usuario elige.
+function mostrarConfirmacion(r) {
+  const bloque=$('confirmacion_bloque');
+  const guardada=$('seleccion_guardada');
+  const volver=$('volver_desde_resultado');
+  $('opciones_confirmacion').replaceChildren();
+  guardada.classList.add('oculto');
+  if(r.confirmada){
+    bloque.classList.add('oculto');
+    volver.classList.add('oculto');
+    renderSeleccion(r.seleccion_usuario);
+    return;
+  }
+  // Solo permitir confirmar hipótesis existentes. Si la consulta no es
+  // concluyente, se puede retroceder o iniciar otra sin guardar una elección ficticia.
+  bloque.classList.toggle('oculto', Boolean(r.no_concluyente));
+  volver.classList.toggle('oculto', !r.puede_retroceder);
+  if (r.no_concluyente) return;
+  const candidatas = r.candidatas;
+  candidatas.forEach(op=>{
+    const label=document.createElement('label');label.className='opcion-confirmacion';
+    const input=document.createElement('input');input.type='radio';input.name='hipotesis_confirmada';input.value=op.codigo;input.required=true;
+    const span=document.createElement('span');
+    const titulo=document.createElement('strong');titulo.textContent=`${op.codigo} · ${op.nombre} (${op.puntos} puntos; peso ${Number(op.peso).toFixed(1)} %)`;
+    const descripcion=document.createElement('small');descripcion.textContent=op.descripcion||'';descripcion.className='descripcion-hyp';
+    span.append(titulo,descripcion);
+    label.append(input,span);$('opciones_confirmacion').appendChild(label);
+  });
+}
+function renderSeleccion(seleccion){
+  if(!seleccion)return;
+  const cont=$('seleccion_guardada');
+  cont.textContent=`Selección registrada: ${seleccion.codigo ? seleccion.codigo+' · ' : ''}${seleccion.nombre}. La elección no reemplaza la revisión profesional.`;
+  cont.classList.remove('oculto');
+}
+function mostrarConfirmacionHistorica(r){
+  $('confirmacion_bloque').classList.add('oculto');
+  $('volver_desde_resultado').classList.add('oculto');
+  $('seleccion_guardada').classList.add('oculto');
+  if(r.seleccion_usuario)renderSeleccion(r.seleccion_usuario);
+}
+async function volverPregunta(){
+  try {
+    const res=await api('/api/retroceder','POST',{});
+    if(res.inicio)await inicio();else await pregunta();
+  }catch(e){error(e);}
+}
+$('volver_pregunta').addEventListener('click',volverPregunta);
+$('volver_desde_resultado').addEventListener('click',volverPregunta);
+$('confirmacion_form').addEventListener('submit',async(ev)=>{
+  ev.preventDefault();
+  const opcion=document.querySelector('input[name="hipotesis_confirmada"]:checked');
+  if(!opcion){error(new Error('Selecciona una opción antes de guardar.'));return;}
+  const enviar=$('confirmar_seleccion');enviar.disabled=true;
+  try {
+    const res=await api('/api/confirmar','POST',{codigo:opcion.value});
+    $('confirmacion_bloque').classList.add('oculto');
+    $('volver_desde_resultado').classList.add('oculto');
+    renderSeleccion(res.seleccion_usuario);
+  }catch(e){error(e);}finally{enviar.disabled=false;}
+});
+
 async function arrancar(){
   try{
     const r=await api('/api/auth/yo');csrfToken=r.csrf_token;

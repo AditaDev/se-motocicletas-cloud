@@ -1,4 +1,4 @@
-"""Conexión única a MySQL para conocimiento y transacciones. Sin SQLite/PostgreSQL."""
+"""Conexión única a una base MySQL compatible para todas las capas."""
 import os
 import ssl
 from pathlib import Path

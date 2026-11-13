@@ -34,7 +34,9 @@ def actualizar_acceso(uid, intentos, bloqueado_hasta):
 
 
 def guardar_consulta(uid, estado, resultado):
-    codigo = None if resultado['no_concluyente'] else resultado['principal']['codigo']
+    seleccion = resultado.get('seleccion_usuario')
+    codigo = seleccion.get('codigo') if seleccion else (
+        None if resultado['no_concluyente'] else resultado['principal']['codigo'])
     with engine().begin() as con:
         id_hip = None
         if codigo:
@@ -45,7 +47,7 @@ def guardar_consulta(uid, estado, resultado):
             'id_usuario': uid, 'id_hipotesis': id_hip,
             'token_consulta': estado['token_consulta'], 'categoria': estado['categoria'],
             'ruta_elegida': estado['ruta'],
-            'estado': 'NO_CONCLUYENTE' if resultado['no_concluyente'] else 'FINALIZADA',
+            'estado': ('NO_CONCLUYENTE' if resultado['no_concluyente'] else 'FINALIZADA'),
             'resultado_json': json.dumps(resultado, ensure_ascii=False),
             'fecha': datetime.utcnow(),
         }

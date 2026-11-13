@@ -1,6 +1,6 @@
 """Cinco tablas del modelo relacional documentado, compartidas por las tres capas."""
 from sqlalchemy import (MetaData, Table, Column, Integer, String, Text, DateTime,
-                        ForeignKey, UniqueConstraint, ForeignKeyConstraint, text)
+                        ForeignKey, UniqueConstraint, text)
 
 metadata = MetaData()
 
@@ -40,9 +40,9 @@ usuario = Table('usuario', metadata,
 
 consulta = Table('consulta', metadata,
     Column('id_consulta', Integer, primary_key=True, autoincrement=True),
-    Column('id_usuario', Integer, ForeignKey('usuario.id_usuario'), nullable=True),
+    Column('id_usuario', Integer, ForeignKey('usuario.id_usuario'), nullable=False),
     Column('id_hipotesis', Integer, ForeignKey('hipotesis.id_hipotesis'), nullable=True),
-    Column('token_consulta', String(36), nullable=True, unique=True),
+    Column('token_consulta', String(36), nullable=False, unique=True),
     Column('categoria', String(1), nullable=False),
     Column('ruta_elegida', String(40), nullable=False),
     Column('estado', String(20), nullable=False),

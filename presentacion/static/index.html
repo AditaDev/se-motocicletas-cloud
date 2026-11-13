@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SE Motocicletas | Diagnóstico preliminar</title>
-  <link rel="stylesheet" href="/static/estilos.css" />
+  <link rel="stylesheet" href="/static/estilos.css?v=2" />
 </head>
 <body>
 <header class="nav">
@@ -23,11 +23,21 @@
  <section id="administracion" class="panel oculto"><div class="panel-title"><h2>Administración</h2><p>Usuarios y consultas realizadas en el sistema.</p></div><div id="admin_resumen"></div><h3>Usuarios</h3><div id="admin_usuarios" class="historial-lista"></div><h3>Consultas recientes</h3><div id="admin_consultas" class="historial-lista"></div><div class="actions"><button id="volver_admin" class="btn quiet">Volver</button></div></section>
  <div id="acciones_cuenta" class="actions oculto"><button id="ver_inicio" class="btn quiet">Nuevo diagnóstico</button><button id="ver_historial" class="btn quiet">Mi historial</button><button id="ver_admin" class="btn quiet oculto">Administración</button></div>
  <section id="inicio" class="panel"><div class="panel-title"><h2>¿Cuál es el problema principal?</h2><p>Selecciona una categoría para iniciar el recorrido.</p></div><div id="categorias" class="categorias"><p>Cargando conocimiento…</p></div></section>
- <section id="preguntas" class="panel oculto"><div class="panel-title"><div class="step" id="etapa">Consulta en curso</div><h2>Describe el síntoma</h2><p>Las opciones se consultan desde el conocimiento almacenado en el servicio.</p></div><div id="opciones" class="opciones"></div><div class="actions"><button id="no_se" class="btn quiet">No reconozco ninguna opción</button><button id="reiniciar_pregunta" class="btn quiet">Reiniciar</button></div></section>
- <section id="resultados" class="panel oculto"><div class="panel-title"><span class="step">RESULTADO DEL SISTEMA EXPERTO</span><h2 id="resultado_titulo">Posible falla</h2><p id="resultado_desc"></p></div><div id="alerta" class="alerta oculto"></div><div id="tabla_resultados"></div><div class="rec"><h3>Recomendación</h3><p id="recomendacion"></p></div><details class="facts"><summary>Ver condiciones IF / AND y regla activada</summary><div id="granulos"></div></details><div class="actions"><button id="reiniciar_resultado" class="btn primary">Realizar otro diagnóstico</button></div></section>
+ <section id="preguntas" class="panel oculto"><div class="panel-title"><div class="step" id="etapa">Consulta en curso</div><h2>Describe el síntoma</h2><p>Las opciones se consultan desde el conocimiento almacenado en el servicio.</p></div><div id="opciones" class="opciones"></div><div class="actions"><button id="volver_pregunta" class="btn quiet">← Pregunta anterior</button><button id="no_se" class="btn quiet">No reconozco ninguna opción</button><button id="reiniciar_pregunta" class="btn quiet">Reiniciar</button></div></section>
+ <section id="resultados" class="panel oculto"><div class="panel-title"><span class="step">RESULTADO DEL SISTEMA EXPERTO</span><h2 id="resultado_titulo">Posible falla</h2><p id="resultado_desc"></p></div><div id="alerta" class="alerta oculto"></div><div id="tabla_resultados"></div><div class="rec"><h3>Recomendación</h3><p id="recomendacion"></p></div><details class="facts"><summary>Ver condiciones IF / AND y regla activada</summary><div id="granulos"></div></details>
+  <div id="confirmacion_bloque" class="confirmacion">
+    <h3>¿Cuál de las posibles fallas coincide con lo observado?</h3>
+    <p>Por favor, revisa las condiciones observables de tu motocicleta y selecciona la opción que mejor coincida con ellas. No desmontes piezas ni manipules frenos, dirección o sistemas calientes; ante una falla de seguridad, busca ayuda de un mecánico.</p>
+    <form id="confirmacion_form">
+      <div id="opciones_confirmacion" class="opciones_confirmacion"></div>
+      <div class="actions"><button type="submit" class="btn primary" id="confirmar_seleccion">Guardar mi selección</button></div>
+    </form>
+  </div>
+  <div id="seleccion_guardada" class="seleccion_guardada oculto" aria-live="polite"></div>
+  <div class="actions"><button id="volver_desde_resultado" class="btn quiet">← Pregunta anterior</button><button id="reiniciar_resultado" class="btn primary">Realizar otro diagnóstico</button></div></section>
  <section id="servicio" class="info"><div><strong>Servicio web REST</strong><p>La interfaz se comunica con Flask mediante solicitudes a <code>/api/</code>.</p></div><div><strong>MySQL único · base de conocimiento</strong><p><span id="contador">25 hipótesis · 37 hechos · 63 asociaciones</span></p></div><div><strong>Reglas</strong><p>79 reglas documentadas; 25 reglas diagnósticas consultables.</p></div></section>
  <footer>Orientación preliminar. No confirma averías ni reemplaza la inspección de un profesional.<span>·</span><a href="/api/conocimiento/resumen" target="_blank" rel="noopener">Ver API y datos almacenados</a></footer>
 </main>
-<script src="/static/app.js" defer></script>
+<script src="/static/app.js?v=3" defer></script>
 </body>
 </html>
