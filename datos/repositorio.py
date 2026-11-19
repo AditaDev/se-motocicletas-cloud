@@ -1,4 +1,4 @@
-"""Capa de datos: consultas granulares parametrizadas a MySQL (una sola BD)."""
+"""Capa de datos: consultas granulares parametrizadas a PostgreSQL (una sola BD)."""
 import json
 from pathlib import Path
 from sqlalchemy import text

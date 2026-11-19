@@ -4,19 +4,9 @@ services:
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: python -m datos.inicializacion && gunicorn app:app
+    startCommand: gunicorn app:app
     envVars:
       - key: SECRET_KEY
         generateValue: true
-      - key: MYSQL_HOST
+      - key: DATABASE_URL
         sync: false
-      - key: MYSQL_PORT
-        value: '4000'
-      - key: MYSQL_USER
-        sync: false
-      - key: MYSQL_PASSWORD
-        sync: false
-      - key: MYSQL_DATABASE
-        value: motos_experto_nm
-      - key: MYSQL_SSL
-        value: '1'

@@ -1,8 +1,8 @@
-"""Capa de datos: persistencia de cuentas e historial en la única base compatible con MySQL."""
+"""Capa de datos: persistencia de cuentas e historial en la única base PostgreSQL de Supabase."""
 import json
 from datetime import datetime
 from sqlalchemy import select, func
-from sqlalchemy.dialects.mysql import insert as mysql_insert
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from .conexion import engine
 from .esquema import usuario, consulta, hipotesis
 
@@ -52,8 +52,8 @@ def guardar_consulta(uid, estado, resultado):
             'fecha': datetime.utcnow(),
         }
         # UNIQUE token_consulta evita duplicar diagnósticos al recargar los resultados.
-        stmt = mysql_insert(consulta).values(**valores)
-        con.execute(stmt.on_duplicate_key_update(id_consulta=consulta.c.id_consulta))
+        stmt = pg_insert(consulta).values(**valores)
+        con.execute(stmt.on_conflict_do_nothing(index_elements=[consulta.c.token_consulta]))
 
 
 def serializar(d):
